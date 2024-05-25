@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,37 +12,44 @@ namespace Visual
 
     class SVGSaver
     {
-        protected List<ICurve> lines;
+        protected List<VisualCurve> lines;
         private const int n = 25;
 
         public SVGSaver(List<VisualCurve> lines_)
         {
-            //this.lines = new List<VisualCurve>();
-
-            foreach (var curve in lines_)
-            {
-                this.lines.Add(curve.GetCurve());
-            }
+            this.lines = lines_;
         }
-
-        public void save(ASVGDrawer svgDrawer, string file)
+        public void save(string file)
         {
+            StringBuilder svgContent = new StringBuilder();
+            svgContent.Append("<svg xmlns='http://www.w3.org/2000/svg' version='1.1'>");
+            ASVGDrawer svgDrawer;
             foreach (var line in lines)
             {
-                svgDrawer.DrawFirstPoint(line);
 
-                for (double i = 1; i < n; i++)
+               if (line.GetTypeDrawer() == typeof(DottedDrawer))
                 {
-                    svgDrawer.DrawSegment(line, i / n, (i + 1) / n);
+                    svgDrawer = new SVGDotted();
                 }
-                svgDrawer.DrawLastPoint(line);
+                else
+                {
+                    svgDrawer = new SVGContinuous();
+                }
+                double t = (double)1 / n;
+
+                svgDrawer.DrawFirstPoint(line.GetCurve());
+                for (int i = 1; i <= n; ++i)
+                {
+                    svgDrawer.DrawSegment(line.GetCurve(), (double)(i - 1) * t, (double)(i * t));
+                }
+                svgDrawer.DrawLastPoint(line.GetCurve());
+                svgContent.Append(svgDrawer.GetContent().ToString());
             }
 
-            svgDrawer.GetContent().Append("</svg>");
             string path = Directory.GetCurrentDirectory();
             string filePath = path + file;
 
-            File.WriteAllText(filePath, svgDrawer.GetContent().ToString());
+            File.WriteAllText(filePath, svgContent.ToString() + "</svg>");
         }
     }
 }

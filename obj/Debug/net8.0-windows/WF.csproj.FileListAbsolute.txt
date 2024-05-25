@@ -12,3 +12,4 @@ D:\WF\obj\Debug\net8.0-windows\refint\WF.dll
 D:\WF\obj\Debug\net8.0-windows\WF.pdb
 D:\WF\obj\Debug\net8.0-windows\WF.genruntimeconfig.cache
 D:\WF\obj\Debug\net8.0-windows\ref\WF.dll
+D:\WF\obj\Debug\net8.0-windows\WF.sourcelink.json

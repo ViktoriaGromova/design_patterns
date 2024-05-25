@@ -13,14 +13,21 @@ namespace Visual
         private const int n = 20;
         protected float width = 1;
         protected ICurve curve;
+        protected IDrawer? d = default!;
 
         public VisualCurve(ICurve c_)
         {
             this.curve = c_;
         }
 
-        public ICurve GetCurve(){
+        public ICurve GetCurve()
+        {
             return curve;
+        }
+
+        public Type GetTypeDrawer()
+        {
+            return d.GetType();
         }
 
         public IPoint GetPoint(double t)
@@ -30,6 +37,7 @@ namespace Visual
 
         public void Draw(IDrawer d)
         {
+            this.d = d;
             d.DrawFirstPoint(curve);
             d.DrawLastPoint(curve);
             double t = (double)1 / n;
@@ -40,5 +48,4 @@ namespace Visual
             }
         }
     }
-
 }
