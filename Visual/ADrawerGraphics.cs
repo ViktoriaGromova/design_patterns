@@ -10,7 +10,7 @@ namespace Visual
 {
     public abstract class ADrawerGraphics : IDrawer
     {
-        protected Graphics g; //для использования графики
+        protected Graphics g;
         
         public abstract void DrawFirstPoint(ICurve C);
         public abstract void DrawLastPoint(ICurve C);

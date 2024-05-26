@@ -7,8 +7,9 @@ using Geometry;
 
 namespace Visual
 {
-    class SVGContinuous : ASVGDrawer
+    public class SVGContinuous : ASVGDrawer
     {
+
         public override void DrawLastPoint(ICurve C)
         {
             IPoint end = C.GetPoint(1);
@@ -26,7 +27,7 @@ namespace Visual
         public override void DrawFirstPoint(ICurve C)
         {
             IPoint start = C.GetPoint(0);
-            content.Append("<rect x=\"" + (int)start.X + "\" y=\"" + (int)start.Y + "\" width=\"10\" height=\"10\" stroke=\"green\" fill=\"green\" /> \n");
+            content.Append("<rect x=\"" + (int)start.X + "\" y=\"" + (int)start.Y + "\" width=\"3\" height=\"3\" stroke=\"green\" fill=\"green\" /> \n");
         }
     }
 }
